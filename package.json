@@ -1,5 +1,4 @@
 {
-<<<<<<< bridge
   "name": "eth-binance-bridge",
   "version": "1.0.0",
   "description": "ERC20 token bridge with Oracle, a winter project 2021",
@@ -27,6 +26,5 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.1",
     "@truffle/hdwallet-provider": "^2.0.0"
->>>>>>> main
   }
 }
