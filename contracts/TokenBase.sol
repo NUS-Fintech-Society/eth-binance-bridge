@@ -23,7 +23,7 @@ contract TokenBase is ERC20 {
     require(msg.sender == admin, 'only admin');
     _mint(to, amount);
   }
-
+  
   // To destroy token
   function burn(address owner, uint amount) external {
     // function protected where only admin is able to call this function
