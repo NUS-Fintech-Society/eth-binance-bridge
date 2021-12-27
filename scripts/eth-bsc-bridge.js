@@ -3,7 +3,7 @@ const BridgeEth = require('../build/contracts/BridgeEth.json');
 const BridgeBsc = require('../build/contracts/BridgeBsc.json');
 
 //public testnet for eth and bsc smartchain
-const web3Eth = new Web3('Infura Rinkeby  url');
+const web3Eth = new Web3('Infura Rinkeby  url');  //'wss://rinkeby.infura.io/ws/v3/08405097660d440997b9a242ef6c042d'
 const web3Bsc = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
 //import address onto bsc smartchain
 const adminPrivKey = '';
