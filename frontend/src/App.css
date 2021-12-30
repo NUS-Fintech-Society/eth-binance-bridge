@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+}
+
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.eth-to-bsc {
+  border: 2px;
+  border-width: 20px;
+  border-color: aliceblue;
+  padding: 20px;
+}
+
+.bsc-to-eth {
+  border: 2px;
+  border-width: 20px;
+  border-color: aliceblue;
+  padding: 20px;
+}

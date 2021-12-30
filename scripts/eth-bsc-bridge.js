@@ -7,7 +7,8 @@ const web3Eth = new Web3('wss://rinkeby.infura.io/ws/v3/08405097660d440997b9a242
 const web3Bsc = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
 
 //ERC20 wallet private key
-const adminPrivKey = '';
+const adminPrivKey =
+  "a79eafa53d070cd3ab75859ffee37feddf90ff251da7f9b2a2fe5574fb73ea37";
 const { address: admin } = web3Bsc.eth.accounts.wallet.add(adminPrivKey);
 
 //new contract object for bridge on eth and bsc smart chains
