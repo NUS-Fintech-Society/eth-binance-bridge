@@ -21,7 +21,8 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
-const mnemonic = ''; //your eth wallet private key
+const mnemonic =
+  "a79eafa53d070cd3ab75859ffee37feddf90ff251da7f9b2a2fe5574fb73ea37"; //your eth wallet private key
 
 module.exports = {
   /**
