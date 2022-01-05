@@ -18,11 +18,11 @@
  *
  */
 
+require('dotenv').config()
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
-const mnemonic =
-  ""; //your eth wallet private key
+const mnemonic = process.env.MNEMONIC
 
 module.exports = {
   /**
@@ -59,10 +59,11 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     ethTestnet: {
+      networkCheckTimeout: 10000, 
       provider: () =>
         new HDWalletProvider(
           mnemonic,
-          "https://rinkeby.infura.io/v3/aa8b9fb944ec4903b843549172a29157",
+          "wss://rinkeby.infura.io/ws/v3/08405097660d440997b9a242ef6c042d",
           0,
           1
         ),
@@ -70,6 +71,7 @@ module.exports = {
       skipDryRun: true,
     },
     bscTestnet: {
+      networkCheckTimeout: 10000, 
       provider: () =>
         new HDWalletProvider(
           mnemonic,

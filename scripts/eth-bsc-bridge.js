@@ -1,14 +1,14 @@
 const Web3 = require('web3');
 const BridgeEth = require('../build/contracts/BridgeEth.json');
 const BridgeBsc = require('../build/contracts/BridgeBsc.json');
+require('dotenv').config()
 
-//public testnet for eth and bsc 
-const web3Eth = new Web3('wss://rinkeby.infura.io/ws/v3/08405097660d440997b9a242ef6c042d');  
+//public testnet for eth and bsc
+const web3Eth = new Web3('wss://rinkeby.infura.io/ws/v3/08405097660d440997b9a242ef6c042d');
 const web3Bsc = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
 
 //ERC20 wallet private key
-const adminPrivKey =
-  "";
+const adminPrivKey = process.env.PRIVATE_KEY;
 const { address: admin } = web3Bsc.eth.accounts.wallet.add(adminPrivKey);
 
 //new contract object for bridge on eth and bsc smart chains
@@ -23,7 +23,7 @@ const bridgeBsc = new web3Bsc.eth.Contract(
 
 //Listen for events 
 bridgeEth.events.Transfer(
-  {fromBlock: 0, step: 0} 
+  {fromBlock: 0, step: 0},
 )
 .on('data', async event => {
   const { from, to, amount, date, nonce } = event.returnValues;
@@ -51,5 +51,4 @@ bridgeEth.events.Transfer(
     - date ${date}
   `);
 });
-
 

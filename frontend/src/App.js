@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
+import getBlockchain from './ethereum';
 
 function App() {
   const [bscBalance, setBscBalance] = useState(0);
@@ -7,6 +8,14 @@ function App() {
 
    useEffect(() => {
      //get balances and update bscBalance/ethBalance
+     const init = async() => {
+       const [{ tokeneth }, signerAddress] = await getBlockchain();
+       //const data = await tokeneth.readData();
+       //await tokeneth.methods.mint(signerAddress, 1000 * 10 * 18)
+       const ethBalance = await tokeneth.balanceOf(signerAddress);
+       setEthBalance(ethBalance);
+     };
+     init();
    }, []);
   
   //checking functions which should trigger warning msg on invalid input
@@ -46,7 +55,7 @@ function App() {
         </form>
 
         <div>Balance on Binance Smart Chain: {bscBalance} ETH</div>
-        <div>Balance on ETH: {ethBalance} ETH</div>
+        <div>Balance on ETH: {ethBalance.toString()} ETH</div>
       </body>
     </div>
   );
