@@ -15,6 +15,7 @@ module.exports = async function (deployer, network, addresses) {
   if(network === 'bscTestnet') {
     await deployer.deploy(TokenBsc);
     const tokenBsc = await TokenBsc.deployed();
+    await tokenBsc.mint(addresses[0], 1000);
     await deployer.deploy(BridgeBsc, tokenBsc.address);
     const bridgeBsc = await BridgeBsc.deployed();
     await tokenBsc.updateAdmin(bridgeBsc.address);
