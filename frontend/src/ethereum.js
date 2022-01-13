@@ -1,5 +1,5 @@
 import detectEthereumProvider from '@metamask/detect-provider';
-import { ethers, Contract, JsonRpcProvider } from 'ethers';
+import { ethers, Contract } from 'ethers';
 import TokenEth from './contracts/TokenEth.json';
 import TokenBsc from "./contracts/TokenBsc.json";
 import BridgeEth from './contracts/BridgeEth.json';
@@ -10,12 +10,13 @@ export const getEthTokens = () =>
     let provider = await detectEthereumProvider();
     if(provider) {
       await provider.request({ method: 'eth_requestAccounts' });
+      const networkId = await provider.request({ method: "net_version" });
       provider = new ethers.providers.Web3Provider(provider);
       const signer = provider.getSigner();
       const signerAddress = await signer.getAddress();
       const tokenEth = new Contract(
-        TokenEth.networks['4'].address,
-        TokenEth.abi,
+        TokenBsc.networks[networkId].address,
+        TokenBsc.abi,
         signer
       );
       resolve([{tokenEth}, signerAddress]);
