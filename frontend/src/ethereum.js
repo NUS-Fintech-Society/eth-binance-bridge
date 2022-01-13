@@ -15,8 +15,8 @@ export const getEthTokens = () =>
       const signer = provider.getSigner();
       const signerAddress = await signer.getAddress();
       const tokenEth = new Contract(
-        TokenBsc.networks[networkId].address,
-        TokenBsc.abi,
+        TokenEth.networks[networkId].address,
+        TokenEth.abi,
         signer
       );
       resolve([{tokenEth}, signerAddress]);
@@ -24,6 +24,26 @@ export const getEthTokens = () =>
     }
     reject('Install Metamask');
   });
+
+  export const getBscTokens = () =>
+    new Promise(async (resolve, reject) => {
+      let provider = await detectEthereumProvider();
+      if (provider) {
+        await provider.request({ method: "eth_requestAccounts" });
+        const networkId = await provider.request({ method: "net_version" });
+        provider = new ethers.providers.Web3Provider(provider);
+        const signer = provider.getSigner();
+        const signerAddress = await signer.getAddress();
+        const tokenBsc = new Contract(
+          TokenBsc.networks[networkId].address,
+          TokenBsc.abi,
+          signer
+        );
+        resolve([{ tokenBsc }, signerAddress]);
+        return;
+      }
+      reject("Install Metamask");
+    });
 
   export const getBridgeEth = (amount) =>
     new Promise(async (resolve, reject) => {

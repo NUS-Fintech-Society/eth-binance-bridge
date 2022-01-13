@@ -14,16 +14,17 @@ function App() {
    }, []);
   
   const getBalances = async () => {
-    
+    //if user on eth net
     const [{ tokenEth }, signerAddress] = await getEthTokens();
     const ethBalance = await tokenEth.balanceOf(signerAddress);
     setEthBalance(ethBalance);
-    // const [{ tokenBsc }, address] = await getBscTokens();
-    // console.log(
-    //   await tokenBsc.balanceOf("0xc06faD7B87FA0bE309DEeD5fEc41792BdE441CE2")
-    // );
-    // console.log(tokenBsc.balanceOf(address));
-    setBscBalance(totalSupply-ethBalance);
+    setBscBalance(totalSupply - ethBalance);
+    
+    //if user on bsc net
+    //  const [{ tokenBsc }, signerAddress] = await getBscTokens();
+    //  const bscBalance = await tokenBsc.balanceOf(signerAddress);
+    //  setEthBalance(bscBalance);
+    //  setBscBalance(totalSupply - bscBalance);
   };
 
   async function transferEth(e) {
