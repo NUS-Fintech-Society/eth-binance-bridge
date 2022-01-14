@@ -5,6 +5,18 @@ import TokenBsc from "./contracts/TokenBsc.json";
 import BridgeEth from './contracts/BridgeEth.json';
 import BridgeBsc from "./contracts/BridgeBsc.json";
 
+export const getNetwork = () =>
+  new Promise(async (resolve, reject) => {
+    let provider = await detectEthereumProvider();
+    if (provider) {
+      await provider.request({ method: "eth_requestAccounts" });
+      const networkId = await provider.request({ method: "net_version" });
+      resolve([networkId]);
+      return;
+    }
+    reject("Install Metamask");
+  });
+
 export const getEthTokens = () =>
   new Promise( async (resolve, reject) => {
     let provider = await detectEthereumProvider();
@@ -49,10 +61,8 @@ export const getEthTokens = () =>
     new Promise(async (resolve, reject) => {
       let provider = await detectEthereumProvider();
       if (provider) {
-        
         await provider.request({ method: "eth_requestAccounts" });
         const networkId = await provider.request({ method: "net_version" });
-        
         provider = new ethers.providers.Web3Provider(provider);
         const signer = provider.getSigner();
         const signerAddress = await signer.getAddress();
@@ -61,6 +71,7 @@ export const getEthTokens = () =>
           BridgeEth.abi,
           signer
         );
+        console.log(bridgeEth);
         bridgeEth.burn(signerAddress, amount);
         return;
       }
@@ -84,7 +95,7 @@ export const getEthTokens = () =>
     //         BridgeBsc.abi,
     //         signer
     //       );
-    //       console.log(bridgeEth);
+    //       console.log(bridgeBsc);
     //       bridgeBsc.burn(signerAddress, amount);
     //       return;
     //     }

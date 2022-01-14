@@ -1,32 +1,35 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { getBscTokens, getBridgeEth, getEthTokens } from "./ethereum";
+import { ethers, Contract } from "ethers";
+import { getBridgeEth, getBscTokens, getEthTokens, getNetwork } from './ethereum';
 
 function App() {
   const [bscBalance, setBscBalance] = useState(0);
   const [ethBalance, setEthBalance] = useState(0);
   const [ethAmt, setEthAmt] = useState(0);
   const [bscAmt, setBscAmt] = useState(0);
-  const totalSupply = 2000;
+  const totalSupply = 2100;
 
    useEffect(() => {
      getBalances();
    }, []);
   
   const getBalances = async () => {
-    //if user on eth net
-    const [{ tokenEth }, signerAddress] = await getEthTokens();
-    const ethBalance = await tokenEth.balanceOf(signerAddress);
-    setEthBalance(ethBalance);
-    setBscBalance(totalSupply - ethBalance);
-    
-    //if user on bsc net
-    //  const [{ tokenBsc }, signerAddress] = await getBscTokens();
-    //  const bscBalance = await tokenBsc.balanceOf(signerAddress);
-    //  setEthBalance(bscBalance);
-    //  setBscBalance(totalSupply - bscBalance);
+    console.log("get balances");
+    const [networkId] = await getNetwork();
+    if (networkId === '4') {
+      const [{ tokenEth }, signerAddress] = await getEthTokens();
+      const ethBalance = await tokenEth.balanceOf(signerAddress);
+      setEthBalance(parseInt(ethBalance.toString()));
+      setBscBalance(totalSupply - ethBalance);
+    } else if (networkId === '97') {
+       const [{ tokenBsc }, signerAddress] = await getBscTokens();
+       const bscBalance = await tokenBsc.balanceOf(signerAddress);
+       setBscBalance(parseInt(bscBalance.toString()));
+       setEthBalance(totalSupply - bscBalance);
+    }
   };
-
+  
   async function transferEth(e) {
     e.preventDefault();
     if (ethAmt > ethBalance) {
